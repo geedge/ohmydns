@@ -12,3 +12,4 @@ plugin/v64dns/analyze/pb/__pycache__/
 *.csv
 *.txt
 plugin/v64dns/analyze/pb/.idea/
+!plugin/v64dns/analyze/pb/requirements.txt
