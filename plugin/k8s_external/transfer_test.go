@@ -4,10 +4,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/kubernetes"
-	"github.com/coredns/coredns/plugin/test"
-	"github.com/coredns/coredns/plugin/transfer"
+	"ohmydns/plugin"
+	"ohmydns/plugin/kubernetes"
+	"ohmydns/plugin/test"
+	"ohmydns/plugin/transfer"
 
 	"github.com/miekg/dns"
 )

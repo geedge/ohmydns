@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/coredns/coredns/plugin/metadata"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin/metadata"
+	"ohmydns/plugin/pkg/request"
 )
 
 func TestInCidr(t *testing.T) {

@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/coredns/coredns/plugin/file"
-	"github.com/coredns/coredns/plugin/file/tree"
-	clog "github.com/coredns/coredns/plugin/pkg/log"
+	"ohmydns/plugin/file"
+	"ohmydns/plugin/file/tree"
+	clog "ohmydns/plugin/pkg/log"
 
 	"github.com/miekg/dns"
 )

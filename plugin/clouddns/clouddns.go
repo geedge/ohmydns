@@ -10,11 +10,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/file"
-	"github.com/coredns/coredns/plugin/pkg/fall"
-	"github.com/coredns/coredns/plugin/pkg/upstream"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/file"
+	"ohmydns/plugin/pkg/fall"
+	"ohmydns/plugin/pkg/request"
+	"ohmydns/plugin/pkg/upstream"
 
 	"github.com/miekg/dns"
 	gcp "google.golang.org/api/dns/v1"

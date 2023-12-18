@@ -4,10 +4,10 @@ import (
 	"context"
 	"time"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/dnstap/msg"
-	"github.com/coredns/coredns/plugin/pkg/replacer"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/dnstap/msg"
+	"ohmydns/plugin/pkg/replacer"
+	"ohmydns/plugin/pkg/request"
 
 	tap "github.com/dnstap/golang-dnstap"
 	"github.com/miekg/dns"

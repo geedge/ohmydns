@@ -10,10 +10,10 @@ import (
 	"math"
 	"net"
 
-	"github.com/coredns/coredns/plugin/metrics/vars"
-	clog "github.com/coredns/coredns/plugin/pkg/log"
-	"github.com/coredns/coredns/plugin/pkg/reuseport"
-	"github.com/coredns/coredns/plugin/pkg/transport"
+	"ohmydns/plugin/metrics/vars"
+	clog "ohmydns/plugin/pkg/log"
+	"ohmydns/plugin/pkg/reuseport"
+	"ohmydns/plugin/pkg/transport"
 
 	"github.com/miekg/dns"
 	"github.com/quic-go/quic-go"

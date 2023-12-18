@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"sort"
 
-	"github.com/coredns/coredns/plugin/pkg/dnsutil"
+	"ohmydns/plugin/pkg/dnsutil"
 )
 
 // checkZoneSyntax() checks whether the given string match 1035 Preferred Syntax or not.

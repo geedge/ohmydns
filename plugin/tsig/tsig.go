@@ -6,9 +6,9 @@ import (
 	"encoding/hex"
 	"time"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/pkg/log"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/pkg/log"
+	"ohmydns/plugin/pkg/request"
 
 	"github.com/miekg/dns"
 )

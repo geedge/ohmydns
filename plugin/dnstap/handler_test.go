@@ -5,9 +5,9 @@ import (
 	"net"
 	"testing"
 
-	"github.com/coredns/coredns/plugin/dnstap/msg"
-	"github.com/coredns/coredns/plugin/metadata"
-	test "github.com/coredns/coredns/plugin/test"
+	"ohmydns/plugin/dnstap/msg"
+	"ohmydns/plugin/metadata"
+	test "ohmydns/plugin/test"
 
 	tap "github.com/dnstap/golang-dnstap"
 	"github.com/miekg/dns"

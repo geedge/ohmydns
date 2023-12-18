@@ -3,9 +3,9 @@ package kubernetes
 import (
 	"context"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/metadata"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/metadata"
+	"ohmydns/plugin/pkg/request"
 )
 
 // Metadata implements the metadata.Provider interface.

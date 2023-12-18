@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/coredns/coredns/plugin/file/tree"
-	"github.com/coredns/coredns/plugin/pkg/upstream"
+	"ohmydns/plugin/file/tree"
+	"ohmydns/plugin/pkg/upstream"
 
 	"github.com/miekg/dns"
 )

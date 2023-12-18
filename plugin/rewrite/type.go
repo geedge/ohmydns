@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin/pkg/request"
 
 	"github.com/miekg/dns"
 )

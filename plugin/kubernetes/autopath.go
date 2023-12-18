@@ -1,9 +1,9 @@
 package kubernetes
 
 import (
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/kubernetes/object"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/kubernetes/object"
+	"ohmydns/plugin/pkg/request"
 )
 
 // AutoPath implements the AutoPathFunc call from the autopath plugin.

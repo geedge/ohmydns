@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coredns/coredns/plugin/pkg/dnstest"
-	"github.com/coredns/coredns/plugin/pkg/fall"
-	"github.com/coredns/coredns/plugin/test"
-	crequest "github.com/coredns/coredns/request"
+	"ohmydns/plugin/pkg/dnstest"
+	"ohmydns/plugin/pkg/fall"
+	crequest "ohmydns/plugin/pkg/request"
+	"ohmydns/plugin/test"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/request"

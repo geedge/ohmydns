@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/coredns/coredns/plugin"
+	"ohmydns/plugin"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"

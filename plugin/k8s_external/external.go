@@ -13,11 +13,11 @@ package external
 import (
 	"context"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/etcd/msg"
-	"github.com/coredns/coredns/plugin/pkg/fall"
-	"github.com/coredns/coredns/plugin/pkg/upstream"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/etcd/msg"
+	"ohmydns/plugin/pkg/fall"
+	"ohmydns/plugin/pkg/request"
+	"ohmydns/plugin/pkg/upstream"
 
 	"github.com/miekg/dns"
 )

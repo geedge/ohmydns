@@ -5,9 +5,9 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/coredns/coredns/pb"
-	"github.com/coredns/coredns/plugin/pkg/dnstest"
-	"github.com/coredns/coredns/plugin/test"
+	"ohmydns/pb"
+	"ohmydns/plugin/pkg/dnstest"
+	"ohmydns/plugin/test"
 
 	"github.com/miekg/dns"
 )

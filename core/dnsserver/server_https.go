@@ -11,13 +11,13 @@ import (
 	"time"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/plugin/metrics/vars"
-	"github.com/coredns/coredns/plugin/pkg/dnsutil"
-	"github.com/coredns/coredns/plugin/pkg/doh"
-	clog "github.com/coredns/coredns/plugin/pkg/log"
-	"github.com/coredns/coredns/plugin/pkg/response"
-	"github.com/coredns/coredns/plugin/pkg/reuseport"
-	"github.com/coredns/coredns/plugin/pkg/transport"
+	"ohmydns/plugin/metrics/vars"
+	"ohmydns/plugin/pkg/dnsutil"
+	"ohmydns/plugin/pkg/doh"
+	clog "ohmydns/plugin/pkg/log"
+	"ohmydns/plugin/pkg/response"
+	"ohmydns/plugin/pkg/reuseport"
+	"ohmydns/plugin/pkg/transport"
 )
 
 // ServerHTTPS represents an instance of a DNS-over-HTTPS server.

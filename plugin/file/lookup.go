@@ -3,11 +3,11 @@ package file
 import (
 	"context"
 
-	"github.com/coredns/coredns/core/dnsserver"
-	"github.com/coredns/coredns/plugin/file/rrutil"
-	"github.com/coredns/coredns/plugin/file/tree"
-	"github.com/coredns/coredns/plugin/metadata"
-	"github.com/coredns/coredns/request"
+	"ohmydns/core/dnsserver"
+	"ohmydns/plugin/file/rrutil"
+	"ohmydns/plugin/file/tree"
+	"ohmydns/plugin/metadata"
+	"ohmydns/plugin/pkg/request"
 
 	"github.com/miekg/dns"
 )

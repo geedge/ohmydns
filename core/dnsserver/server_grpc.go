@@ -8,9 +8,9 @@ import (
 	"net"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/pb"
-	"github.com/coredns/coredns/plugin/pkg/reuseport"
-	"github.com/coredns/coredns/plugin/pkg/transport"
+	"ohmydns/pb"
+	"ohmydns/plugin/pkg/reuseport"
+	"ohmydns/plugin/pkg/transport"
 
 	"github.com/grpc-ecosystem/grpc-opentracing/go/otgrpc"
 	"github.com/miekg/dns"

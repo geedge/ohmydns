@@ -7,9 +7,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/coredns/coredns/plugin/pkg/log"
-	"github.com/coredns/coredns/plugin/pkg/upstream"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin/pkg/log"
+	"ohmydns/plugin/pkg/request"
+	"ohmydns/plugin/pkg/upstream"
 
 	"github.com/miekg/dns"
 )

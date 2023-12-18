@@ -4,8 +4,8 @@ package main
 //go:generate go run owners_generate.go
 
 import (
-	_ "github.com/coredns/coredns/core/plugin" // Plug in CoreDNS.
-	"github.com/coredns/coredns/coremain"
+	_ "ohmydns/core/plugin" // Plug in CoreDNS.
+	"ohmydns/coremain"
 )
 
 func main() {

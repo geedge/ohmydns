@@ -3,7 +3,7 @@ package file
 import (
 	"net"
 
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin/pkg/request"
 
 	"github.com/miekg/dns"
 )

@@ -3,7 +3,7 @@ package v64dns
 import (
 	"github.com/miekg/dns"
 	"net"
-	"ohmydns2/plugin/pkg/request"
+	"ohmydns/plugin/pkg/request"
 	"strconv"
 	"strings"
 )
@@ -21,7 +21,7 @@ type Policy struct {
 
 // ResponseHandler 跨栈解析响应主要处理函数
 func (v V64dns) ResponseHandler(msg *dns.Msg, state request.Request) *dns.Msg {
-	step, _ := strconv.Atoi(string(rune(strings.Split(state.QName(),".")[0][1:])))
+	step, _ := strconv.Atoi(strings.Split(state.QName(), ".")[0][1:])
 
 	// 未到达最后一步
 	if step < v.p.maxLen {
@@ -50,7 +50,7 @@ func (v V64dns) ResponseTXT(msg *dns.Msg, state request.Request) *dns.Msg {
 	if len(dSlice) > 4 {
 		// 将最近一次编码拆分开
 		cList := strings.Split(dSlice[len(dSlice)-6], "-")
-		iaddr :=""
+		iaddr := ""
 		// 首部编码如果长度为4则为IPv6地址编码，否则为IPv4的
 		if len(cList[0]) == 4 {
 			iaddr = strings.ReplaceAll(dSlice[len(dSlice)-6], "-", ":")
@@ -62,7 +62,7 @@ func (v V64dns) ResponseTXT(msg *dns.Msg, state request.Request) *dns.Msg {
 		iaddr = net.ParseIP(iaddr).String()
 		oaddr := state.IP()
 		// 调用Python
-		go v.a.Go2py([]string{iaddr, oaddr, "1"})
+		go v.a.Go2py([]string{iaddr, oaddr, "1", state.QName(), state.Type()})
 
 	}
 
@@ -149,11 +149,11 @@ func (v V64dns) ResponseCNAME(msg *dns.Msg, state request.Request) *dns.Msg {
 	// 实验进度+1
 	answer.Target += nextProgress(dSlice[0]) + "."
 	// 内容填充
-	answer.Target += dSlice[1] + "."    // 实验水印
-	answer.Target += ip2id(state.IP()) + "." //新水印
-	answer.Target += dSlice[len(dSlice)-5] + "." //随机数
+	answer.Target += dSlice[1] + "."                                // 实验水印
+	answer.Target += ip2id(state.IP()) + "."                        //新水印
+	answer.Target += dSlice[len(dSlice)-5] + "."                    //随机数
 	answer.Target += v.changeSubDomain(dSlice[len(dSlice)-4]) + "." //新子域名
-	for _, i := range dSlice[len(dSlice)-3 : ] { //[实验域名二级域].[实验域名顶级域].
+	for _, i := range dSlice[len(dSlice)-3:] {                      //[实验域名二级域].[实验域名顶级域].
 		answer.Target += i + "."
 	}
 	msg.Answer = append(msg.Answer, answer)

@@ -3,7 +3,7 @@ package etcd
 import (
 	"time"
 
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin/pkg/request"
 )
 
 // Serial returns the serial number to use.

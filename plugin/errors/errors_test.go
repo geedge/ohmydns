@@ -12,10 +12,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/pkg/dnstest"
-	clog "github.com/coredns/coredns/plugin/pkg/log"
-	"github.com/coredns/coredns/plugin/test"
+	"ohmydns/plugin"
+	"ohmydns/plugin/pkg/dnstest"
+	clog "ohmydns/plugin/pkg/log"
+	"ohmydns/plugin/test"
 
 	"github.com/miekg/dns"
 )

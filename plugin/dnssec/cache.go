@@ -5,7 +5,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/coredns/coredns/plugin/pkg/cache"
+	"ohmydns/plugin/pkg/cache"
 
 	"github.com/miekg/dns"
 )

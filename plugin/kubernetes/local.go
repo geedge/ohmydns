@@ -4,7 +4,7 @@ import (
 	"net"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/core/dnsserver"
+	"ohmydns/core/dnsserver"
 )
 
 // boundIPs returns the list of non-loopback IPs that CoreDNS is bound to

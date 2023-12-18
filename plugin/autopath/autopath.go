@@ -34,11 +34,11 @@ package autopath
 import (
 	"context"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/metrics"
-	"github.com/coredns/coredns/plugin/pkg/dnsutil"
-	"github.com/coredns/coredns/plugin/pkg/nonwriter"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/metrics"
+	"ohmydns/plugin/pkg/dnsutil"
+	"ohmydns/plugin/pkg/nonwriter"
+	"ohmydns/plugin/pkg/request"
 
 	"github.com/miekg/dns"
 )

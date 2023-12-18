@@ -3,9 +3,9 @@ package v64dns
 import (
 	"context"
 	"github.com/miekg/dns"
-	olog "ohmydns2/plugin/pkg/log"
-	"ohmydns2/plugin/pkg/request"
-	"ohmydns2/plugin/v64dns/analyze"
+	olog "ohmydns/plugin/pkg/log"
+	"ohmydns/plugin/pkg/request"
+	"ohmydns/plugin/v64dns/analyze"
 	"strings"
 )
 

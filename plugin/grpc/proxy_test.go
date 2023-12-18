@@ -8,9 +8,9 @@ import (
 	"testing"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/pb"
-	"github.com/coredns/coredns/plugin/pkg/dnstest"
-	"github.com/coredns/coredns/plugin/test"
+	"ohmydns/pb"
+	"ohmydns/plugin/pkg/dnstest"
+	"ohmydns/plugin/test"
 
 	"github.com/miekg/dns"
 	"google.golang.org/grpc"

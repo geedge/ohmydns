@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/pkg/reuseport"
+	"ohmydns/plugin"
+	"ohmydns/plugin/pkg/reuseport"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"

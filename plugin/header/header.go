@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	clog "github.com/coredns/coredns/plugin/pkg/log"
+	clog "ohmydns/plugin/pkg/log"
 
 	"github.com/miekg/dns"
 )

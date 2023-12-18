@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 
-	"github.com/coredns/coredns/plugin/test"
+	"ohmydns/plugin/test"
 )
 
 func TestTempFile(t *testing.T) {

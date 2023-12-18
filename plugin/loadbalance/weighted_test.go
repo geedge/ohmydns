@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coredns/coredns/plugin/pkg/dnstest"
-	testutil "github.com/coredns/coredns/plugin/test"
+	"ohmydns/plugin/pkg/dnstest"
+	testutil "ohmydns/plugin/test"
 
 	"github.com/miekg/dns"
 )

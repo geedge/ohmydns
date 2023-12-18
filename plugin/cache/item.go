@@ -4,8 +4,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/coredns/coredns/plugin/cache/freq"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin/cache/freq"
+	"ohmydns/plugin/pkg/request"
 
 	"github.com/miekg/dns"
 )

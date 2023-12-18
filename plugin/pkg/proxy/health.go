@@ -5,8 +5,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/coredns/coredns/plugin/pkg/log"
-	"github.com/coredns/coredns/plugin/pkg/transport"
+	"ohmydns/plugin/pkg/log"
+	"ohmydns/plugin/pkg/transport"
 
 	"github.com/miekg/dns"
 )

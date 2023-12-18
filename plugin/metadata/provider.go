@@ -40,7 +40,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin/pkg/request"
 )
 
 // Provider interface needs to be implemented by each plugin willing to provide

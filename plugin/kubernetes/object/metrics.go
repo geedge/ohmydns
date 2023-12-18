@@ -3,8 +3,8 @@ package object
 import (
 	"time"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/pkg/log"
+	"ohmydns/plugin"
+	"ohmydns/plugin/pkg/log"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"

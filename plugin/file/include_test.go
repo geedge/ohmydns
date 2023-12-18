@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/coredns/coredns/plugin/test"
+	"ohmydns/plugin/test"
 )
 
 // Make sure the external miekg/dns dependency is up to date

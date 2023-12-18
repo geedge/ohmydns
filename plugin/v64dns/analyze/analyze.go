@@ -2,12 +2,12 @@ package analyze
 
 import (
 	"context"
-	"ohmydns2/plugin/v64dns/analyze/pb"
+	"ohmydns/plugin/v64dns/analyze/pb"
 	"sync"
 	"sync/atomic"
 	"unsafe"
 
-	olog "ohmydns2/plugin/pkg/log"
+	olog "ohmydns/plugin/pkg/log"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

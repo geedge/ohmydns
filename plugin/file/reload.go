@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/coredns/coredns/plugin/transfer"
+	"ohmydns/plugin/transfer"
 )
 
 // Reload reloads a zone when it is changed on disk. If z.ReloadInterval is zero, no reloading will be done.

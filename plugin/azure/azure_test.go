@@ -5,11 +5,11 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/coredns/coredns/plugin/file"
-	"github.com/coredns/coredns/plugin/pkg/dnstest"
-	"github.com/coredns/coredns/plugin/pkg/fall"
-	"github.com/coredns/coredns/plugin/test"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin/file"
+	"ohmydns/plugin/pkg/dnstest"
+	"ohmydns/plugin/pkg/fall"
+	"ohmydns/plugin/pkg/request"
+	"ohmydns/plugin/test"
 
 	"github.com/miekg/dns"
 )

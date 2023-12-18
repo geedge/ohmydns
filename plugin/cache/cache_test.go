@@ -6,12 +6,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/metadata"
-	"github.com/coredns/coredns/plugin/pkg/dnstest"
-	"github.com/coredns/coredns/plugin/pkg/response"
-	"github.com/coredns/coredns/plugin/test"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/metadata"
+	"ohmydns/plugin/pkg/dnstest"
+	"ohmydns/plugin/pkg/request"
+	"ohmydns/plugin/pkg/response"
+	"ohmydns/plugin/test"
 
 	"github.com/miekg/dns"
 )

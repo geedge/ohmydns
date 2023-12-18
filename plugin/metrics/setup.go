@@ -5,12 +5,12 @@ import (
 	"runtime"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/core/dnsserver"
-	"github.com/coredns/coredns/coremain"
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/metrics/vars"
-	clog "github.com/coredns/coredns/plugin/pkg/log"
-	"github.com/coredns/coredns/plugin/pkg/uniq"
+	"ohmydns/core/dnsserver"
+	"ohmydns/coremain"
+	"ohmydns/plugin"
+	"ohmydns/plugin/metrics/vars"
+	clog "ohmydns/plugin/pkg/log"
+	"ohmydns/plugin/pkg/uniq"
 )
 
 var (

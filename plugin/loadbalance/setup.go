@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/core/dnsserver"
-	"github.com/coredns/coredns/plugin"
-	clog "github.com/coredns/coredns/plugin/pkg/log"
+	"ohmydns/core/dnsserver"
+	"ohmydns/plugin"
+	clog "ohmydns/plugin/pkg/log"
 
 	"github.com/miekg/dns"
 )

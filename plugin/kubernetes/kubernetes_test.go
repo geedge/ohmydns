@@ -5,9 +5,9 @@ import (
 	"net"
 	"testing"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/kubernetes/object"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/kubernetes/object"
+	"ohmydns/plugin/pkg/request"
 
 	"github.com/miekg/dns"
 	api "k8s.io/api/core/v1"

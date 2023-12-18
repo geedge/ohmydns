@@ -4,9 +4,9 @@ import (
 	"sync"
 
 	"github.com/coredns/caddy"
-	_ "github.com/coredns/coredns/core" // Hook in CoreDNS.
-	"github.com/coredns/coredns/core/dnsserver"
-	_ "github.com/coredns/coredns/core/plugin" // Load all managed plugins in github.com/coredns/coredns.
+	_ "ohmydns/core" // Hook in CoreDNS.
+	"ohmydns/core/dnsserver"
+	_ "ohmydns/core/plugin" // Load all managed plugins in github.com/coredns/coredns.
 )
 
 var mu sync.Mutex

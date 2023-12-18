@@ -8,8 +8,8 @@ import (
 	"time"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/plugin/pkg/reuseport"
-	"github.com/coredns/coredns/plugin/pkg/transport"
+	"ohmydns/plugin/pkg/reuseport"
+	"ohmydns/plugin/pkg/transport"
 
 	"github.com/miekg/dns"
 )

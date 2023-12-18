@@ -1,12 +1,13 @@
 package v64dns
 
 import (
+	"fmt"
+	"github.com/miekg/dns"
+	"github.com/pochard/commons/randstr"
 	"net"
-	"ohmydns2/plugin/pkg/request"
+	"ohmydns/plugin/pkg/request"
 	"strconv"
 	"strings"
-
-	"github.com/miekg/dns"
 )
 
 // 判断接收到的域名是否实验可用，0为正常，1代表非实验需要，2代表可能是QName最小化的请求
@@ -16,7 +17,7 @@ func (v V64dns) VaildRequest(d string) int {
 	//判断是否为目标域名
 	if strings.Contains(d, v.zone) {
 		//判断是否有解析进度,首字母为c且长度小于4即为进度标识
-		if ds[0][0]=="c" && len(ds[0]) < 4 {
+		if ds[0][0] == 'c' && len(ds[0]) < 4 {
 			return 0
 		}
 		//不存在解析进度，则可能为Qname最小化的请求，返回2
@@ -151,4 +152,9 @@ func ip2id(ip string) string {
 	} else {
 		return strings.ReplaceAll(i, ":", "-")
 	}
+}
+
+// 构造示例
+func (v V64dns) makeProbev64() string {
+	return fmt.Sprintf("c1.0-0-0-0.%v.%v.", strings.ToLower(randstr.RandomAlphanumeric(5)), v.p.v4domain)
 }

@@ -3,7 +3,7 @@ package header
 import (
 	"context"
 
-	"github.com/coredns/coredns/plugin"
+	"ohmydns/plugin"
 
 	"github.com/miekg/dns"
 )

@@ -7,10 +7,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/etcd/msg"
-	"github.com/coredns/coredns/plugin/transfer"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/etcd/msg"
+	"ohmydns/plugin/pkg/request"
+	"ohmydns/plugin/transfer"
 
 	"github.com/miekg/dns"
 	api "k8s.io/api/core/v1"

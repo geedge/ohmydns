@@ -6,9 +6,9 @@ import (
 	"testing"
 	gotmpl "text/template"
 
-	"github.com/coredns/coredns/plugin/pkg/dnstest"
-	"github.com/coredns/coredns/plugin/test"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin/pkg/dnstest"
+	"ohmydns/plugin/pkg/request"
+	"ohmydns/plugin/test"
 
 	"github.com/miekg/dns"
 )

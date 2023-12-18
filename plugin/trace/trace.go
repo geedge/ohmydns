@@ -10,14 +10,14 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/coredns/coredns/core/dnsserver"
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/metadata"
-	"github.com/coredns/coredns/plugin/pkg/dnstest"
-	clog "github.com/coredns/coredns/plugin/pkg/log"
-	"github.com/coredns/coredns/plugin/pkg/rcode"
-	_ "github.com/coredns/coredns/plugin/pkg/trace" // Plugin the trace package.
-	"github.com/coredns/coredns/request"
+	"ohmydns/core/dnsserver"
+	"ohmydns/plugin"
+	"ohmydns/plugin/metadata"
+	"ohmydns/plugin/pkg/dnstest"
+	clog "ohmydns/plugin/pkg/log"
+	"ohmydns/plugin/pkg/rcode"
+	"ohmydns/plugin/pkg/request"
+	_ "ohmydns/plugin/pkg/trace" // Plugin the trace package.
 
 	"github.com/miekg/dns"
 	ot "github.com/opentracing/opentracing-go"

@@ -13,7 +13,7 @@ The data is added leveraging the *metadata* plugin, values can then be retrieved
 ```go
 import (
     "strconv"
-    "github.com/coredns/coredns/plugin/metadata"
+    "ohmydns/plugin/metadata"
 )
 // ...
 if getLongitude := metadata.ValueFunc(ctx, "geoip/longitude"); getLongitude != nil {

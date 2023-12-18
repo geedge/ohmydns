@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/coredns/coredns/plugin/kubernetes/object"
+	"ohmydns/plugin/kubernetes/object"
 
 	api "k8s.io/api/core/v1"
 	discovery "k8s.io/api/discovery/v1"

@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coredns/coredns/plugin/etcd/msg"
-	"github.com/coredns/coredns/plugin/pkg/dnstest"
-	"github.com/coredns/coredns/plugin/pkg/tls"
-	"github.com/coredns/coredns/plugin/pkg/upstream"
-	"github.com/coredns/coredns/plugin/test"
+	"ohmydns/plugin/etcd/msg"
+	"ohmydns/plugin/pkg/dnstest"
+	"ohmydns/plugin/pkg/tls"
+	"ohmydns/plugin/pkg/upstream"
+	"ohmydns/plugin/test"
 
 	"github.com/miekg/dns"
 )

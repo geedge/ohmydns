@@ -5,10 +5,10 @@ import (
 	"math"
 	"time"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/metadata"
-	"github.com/coredns/coredns/plugin/metrics"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/metadata"
+	"ohmydns/plugin/metrics"
+	"ohmydns/plugin/pkg/request"
 
 	"github.com/miekg/dns"
 )

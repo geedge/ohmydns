@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/coredns/coredns/plugin/transfer"
+	"ohmydns/plugin/transfer"
 
 	"github.com/miekg/dns"
 )

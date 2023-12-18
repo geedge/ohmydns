@@ -3,7 +3,7 @@ package kubernetes
 import (
 	"testing"
 
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin/pkg/request"
 
 	"github.com/miekg/dns"
 )

@@ -1,7 +1,7 @@
 package request
 
 import (
-	"github.com/coredns/coredns/plugin/pkg/edns"
+	"ohmydns/plugin/pkg/edns"
 
 	"github.com/miekg/dns"
 )

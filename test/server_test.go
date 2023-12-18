@@ -8,7 +8,7 @@ import (
 	"unsafe"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/core/dnsserver"
+	"ohmydns/core/dnsserver"
 
 	"github.com/miekg/dns"
 )

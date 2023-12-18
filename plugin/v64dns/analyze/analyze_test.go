@@ -1,7 +1,7 @@
 package analyze
 
 import (
-	"ohmydns2/plugin/v64dns/analyze/pb"
+	"ohmydns/plugin/v64dns/analyze/pb"
 	"testing"
 )
 

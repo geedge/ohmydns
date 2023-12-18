@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/coredns/coredns/plugin/pkg/transport"
+	"ohmydns/plugin/pkg/transport"
 )
 
 func TestHostPortOrFile(t *testing.T) {

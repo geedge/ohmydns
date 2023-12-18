@@ -1,8 +1,8 @@
 package file
 
 import (
-	"github.com/coredns/coredns/plugin/file/tree"
-	"github.com/coredns/coredns/plugin/transfer"
+	"ohmydns/plugin/file/tree"
+	"ohmydns/plugin/transfer"
 
 	"github.com/miekg/dns"
 )

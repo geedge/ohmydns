@@ -3,8 +3,8 @@ package sign
 import (
 	"sort"
 
-	"github.com/coredns/coredns/plugin/file"
-	"github.com/coredns/coredns/plugin/file/tree"
+	"ohmydns/plugin/file"
+	"ohmydns/plugin/file/tree"
 
 	"github.com/miekg/dns"
 )

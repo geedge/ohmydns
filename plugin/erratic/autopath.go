@@ -1,6 +1,6 @@
 package erratic
 
-import "github.com/coredns/coredns/request"
+import "ohmydns/plugin/pkg/request"
 
 // AutoPath implements the AutoPathFunc call from the autopath plugin.
 func (e *Erratic) AutoPath(state request.Request) []string {

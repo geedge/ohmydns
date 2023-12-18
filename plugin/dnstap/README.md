@@ -136,8 +136,8 @@ And then in your plugin:
 
 ~~~ go
 import (
-  "github.com/coredns/coredns/plugin/dnstap/msg"
-  "github.com/coredns/coredns/request"
+  "ohmydns/plugin/dnstap/msg"
+  "ohmydns/plugin/pkg/request"
 
   tap "github.com/dnstap/golang-dnstap"
 )

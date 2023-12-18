@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 
-	mtest "github.com/coredns/coredns/plugin/test"
+	mtest "ohmydns/plugin/test"
 
 	"github.com/miekg/dns"
 )

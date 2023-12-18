@@ -6,10 +6,10 @@ import (
 	"path/filepath"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/core/dnsserver"
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/pkg/parse"
-	pkgtls "github.com/coredns/coredns/plugin/pkg/tls"
+	"ohmydns/core/dnsserver"
+	"ohmydns/plugin"
+	"ohmydns/plugin/pkg/parse"
+	pkgtls "ohmydns/plugin/pkg/tls"
 )
 
 func init() { plugin.Register("grpc", setup) }

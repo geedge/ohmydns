@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coredns/coredns/plugin/etcd"
-	"github.com/coredns/coredns/plugin/etcd/msg"
+	"ohmydns/plugin/etcd"
+	"ohmydns/plugin/etcd/msg"
 
 	"github.com/miekg/dns"
 	etcdcv3 "go.etcd.io/etcd/client/v3"

@@ -3,7 +3,7 @@ package dnsserver
 import (
 	"context"
 
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin/pkg/request"
 )
 
 // Viewer - If Viewer is implemented by a plugin in a server block, its Filter()

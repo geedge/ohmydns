@@ -92,7 +92,7 @@ func _GrpcService_AnalyzeService_Handler(srv interface{}, ctx context.Context, d
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var GrpcService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "ohmydns2.plugin.v64DNS.analyze.GrpcService",
+	ServiceName: "ohmydns.plugin.v64DNS.analyze.GrpcService",
 	HandlerType: (*GrpcServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

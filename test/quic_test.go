@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coredns/coredns/core/dnsserver"
-	ctls "github.com/coredns/coredns/plugin/pkg/tls"
+	"ohmydns/core/dnsserver"
+	ctls "ohmydns/plugin/pkg/tls"
 
 	"github.com/miekg/dns"
 	"github.com/quic-go/quic-go"

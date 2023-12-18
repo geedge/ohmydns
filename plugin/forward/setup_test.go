@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/core/dnsserver"
-	"github.com/coredns/coredns/plugin/pkg/proxy"
+	"ohmydns/core/dnsserver"
+	"ohmydns/plugin/pkg/proxy"
 
 	"github.com/miekg/dns"
 )

@@ -6,12 +6,12 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/file"
-	"github.com/coredns/coredns/plugin/metrics"
-	"github.com/coredns/coredns/plugin/pkg/upstream"
-	"github.com/coredns/coredns/plugin/transfer"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/file"
+	"ohmydns/plugin/metrics"
+	"ohmydns/plugin/pkg/request"
+	"ohmydns/plugin/pkg/upstream"
+	"ohmydns/plugin/transfer"
 
 	"github.com/miekg/dns"
 )

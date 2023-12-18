@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/plugin/pkg/transport"
+	"ohmydns/plugin/pkg/transport"
 )
 
 // TransferIn parses transfer statements: 'transfer from [address...]'.

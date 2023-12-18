@@ -3,7 +3,7 @@ package metrics
 import (
 	"context"
 
-	"github.com/coredns/coredns/core/dnsserver"
+	"ohmydns/core/dnsserver"
 )
 
 // WithServer returns the current server handling the request. It returns the

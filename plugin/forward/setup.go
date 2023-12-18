@@ -9,13 +9,13 @@ import (
 	"time"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/core/dnsserver"
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/dnstap"
-	"github.com/coredns/coredns/plugin/pkg/parse"
-	"github.com/coredns/coredns/plugin/pkg/proxy"
-	pkgtls "github.com/coredns/coredns/plugin/pkg/tls"
-	"github.com/coredns/coredns/plugin/pkg/transport"
+	"ohmydns/core/dnsserver"
+	"ohmydns/plugin"
+	"ohmydns/plugin/dnstap"
+	"ohmydns/plugin/pkg/parse"
+	"ohmydns/plugin/pkg/proxy"
+	pkgtls "ohmydns/plugin/pkg/tls"
+	"ohmydns/plugin/pkg/transport"
 
 	"github.com/miekg/dns"
 )

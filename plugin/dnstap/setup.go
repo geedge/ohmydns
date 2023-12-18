@@ -6,10 +6,10 @@ import (
 	"strings"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/core/dnsserver"
-	"github.com/coredns/coredns/plugin"
-	clog "github.com/coredns/coredns/plugin/pkg/log"
-	"github.com/coredns/coredns/plugin/pkg/replacer"
+	"ohmydns/core/dnsserver"
+	"ohmydns/plugin"
+	clog "ohmydns/plugin/pkg/log"
+	"ohmydns/plugin/pkg/replacer"
 )
 
 var log = clog.NewWithPlugin("dnstap")

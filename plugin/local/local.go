@@ -5,9 +5,9 @@ import (
 	"net"
 	"strings"
 
-	"github.com/coredns/coredns/plugin"
-	clog "github.com/coredns/coredns/plugin/pkg/log"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	clog "ohmydns/plugin/pkg/log"
+	"ohmydns/plugin/pkg/request"
 
 	"github.com/miekg/dns"
 )

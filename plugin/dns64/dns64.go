@@ -9,11 +9,11 @@ import (
 	"net"
 	"time"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/metrics"
-	"github.com/coredns/coredns/plugin/pkg/nonwriter"
-	"github.com/coredns/coredns/plugin/pkg/response"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/metrics"
+	"ohmydns/plugin/pkg/nonwriter"
+	"ohmydns/plugin/pkg/request"
+	"ohmydns/plugin/pkg/response"
 
 	"github.com/miekg/dns"
 )

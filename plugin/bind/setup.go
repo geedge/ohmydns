@@ -6,9 +6,9 @@ import (
 	"net"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/core/dnsserver"
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/pkg/log"
+	"ohmydns/core/dnsserver"
+	"ohmydns/plugin"
+	"ohmydns/plugin/pkg/log"
 
 	"k8s.io/utils/strings/slices"
 )

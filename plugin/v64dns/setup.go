@@ -1,11 +1,10 @@
 package v64dns
 
 import (
-	"ohmydns2/core/dnsserver"
-	"ohmydns2/plugin"
-	olog "ohmydns2/plugin/pkg/log"
-	"ohmydns2/plugin/pkg/prober"
-	"ohmydns2/plugin/v64dns/analyze"
+	"ohmydns/core/dnsserver"
+	"ohmydns/plugin"
+	clog "ohmydns/plugin/pkg/log"
+	"ohmydns/plugin/v64dns/analyze"
 	"strconv"
 
 	"github.com/coredns/caddy"
@@ -92,11 +91,11 @@ func parseArg(c *caddy.Controller) (*V64dns, error) {
 	//go EL.Stop()
 	log.Infof("v64权威服务器启动, 工作参数为 \n Zone:%v, NS4:%v, NS6:%v, IPv4子域:%v, IPv6子域:%v", v.zone, v.ipv4NS, v.ipv6NS, v.p.v4subdomain, v.p.v6subdomain)
 	log.Infof("分析器启动, 工作参数为 \n url:%v", v.a.Graphuri)
-	log.Infof("测试样例: " + prober.MakeTestProbev64(v.p.v4subdomain, v.zone))
+	log.Infof("测试样例: " + v.makeProbev64())
 	return v, nil
 }
 
-var log = olog.NewWithPlugin("v64dns")
+var log = clog.NewWithPlugin("v64dns")
 
 const (
 	chain_maxlen = 4

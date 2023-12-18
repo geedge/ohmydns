@@ -8,10 +8,10 @@ import (
 	gotmpl "text/template"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/plugin/metadata"
-	"github.com/coredns/coredns/plugin/pkg/dnstest"
-	"github.com/coredns/coredns/plugin/pkg/fall"
-	"github.com/coredns/coredns/plugin/test"
+	"ohmydns/plugin/metadata"
+	"ohmydns/plugin/pkg/dnstest"
+	"ohmydns/plugin/pkg/fall"
+	"ohmydns/plugin/test"
 
 	"github.com/miekg/dns"
 )

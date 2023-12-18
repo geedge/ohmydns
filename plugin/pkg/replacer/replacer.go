@@ -7,9 +7,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/coredns/coredns/plugin/metadata"
-	"github.com/coredns/coredns/plugin/pkg/dnstest"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin/metadata"
+	"ohmydns/plugin/pkg/dnstest"
+	"ohmydns/plugin/pkg/request"
 
 	"github.com/miekg/dns"
 )

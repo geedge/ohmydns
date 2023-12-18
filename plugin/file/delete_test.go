@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/coredns/coredns/plugin/file/tree"
-	"github.com/coredns/coredns/plugin/test"
+	"ohmydns/plugin/file/tree"
+	"ohmydns/plugin/test"
 
 	"github.com/miekg/dns"
 )

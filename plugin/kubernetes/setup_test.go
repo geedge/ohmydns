@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/plugin/pkg/fall"
+	"ohmydns/plugin/pkg/fall"
 
 	meta "k8s.io/apimachinery/pkg/apis/meta/v1"
 )

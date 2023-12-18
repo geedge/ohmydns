@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/core/dnsserver"
+	"ohmydns/core/dnsserver"
 )
 
 var (

@@ -1,4 +1,4 @@
-module github.com/coredns/coredns
+module ohmydns
 
 go 1.20
 
@@ -21,6 +21,7 @@ require (
 	github.com/openzipkin-contrib/zipkin-go-opentracing v0.5.0
 	github.com/openzipkin/zipkin-go v0.4.2
 	github.com/oschwald/geoip2-golang v1.9.0
+	github.com/pochard/commons v1.1.2
 	github.com/prometheus/client_golang v1.17.0
 	github.com/prometheus/client_model v0.5.0
 	github.com/prometheus/common v0.45.0

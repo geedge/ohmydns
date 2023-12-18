@@ -2,8 +2,8 @@ package whoami
 
 import (
 	"github.com/coredns/caddy"
-	"github.com/coredns/coredns/core/dnsserver"
-	"github.com/coredns/coredns/plugin"
+	"ohmydns/core/dnsserver"
+	"ohmydns/plugin"
 )
 
 func init() { plugin.Register("whoami", setup) }

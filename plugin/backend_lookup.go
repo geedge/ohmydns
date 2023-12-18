@@ -6,9 +6,9 @@ import (
 	"math"
 	"net"
 
-	"github.com/coredns/coredns/plugin/etcd/msg"
-	"github.com/coredns/coredns/plugin/pkg/dnsutil"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin/etcd/msg"
+	"ohmydns/plugin/pkg/dnsutil"
+	"ohmydns/plugin/pkg/request"
 
 	"github.com/miekg/dns"
 )

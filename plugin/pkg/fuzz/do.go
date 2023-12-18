@@ -4,8 +4,8 @@ package fuzz
 import (
 	"context"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/test"
+	"ohmydns/plugin"
+	"ohmydns/plugin/test"
 
 	"github.com/miekg/dns"
 )

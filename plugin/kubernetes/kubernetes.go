@@ -9,12 +9,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/etcd/msg"
-	"github.com/coredns/coredns/plugin/kubernetes/object"
-	"github.com/coredns/coredns/plugin/pkg/dnsutil"
-	"github.com/coredns/coredns/plugin/pkg/fall"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/etcd/msg"
+	"ohmydns/plugin/kubernetes/object"
+	"ohmydns/plugin/pkg/dnsutil"
+	"ohmydns/plugin/pkg/fall"
+	"ohmydns/plugin/pkg/request"
 
 	"github.com/miekg/dns"
 	api "k8s.io/api/core/v1"

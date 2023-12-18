@@ -6,10 +6,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coredns/coredns/plugin/pkg/dnstest"
-	"github.com/coredns/coredns/plugin/pkg/proxy"
-	"github.com/coredns/coredns/plugin/pkg/transport"
-	"github.com/coredns/coredns/plugin/test"
+	"ohmydns/plugin/pkg/dnstest"
+	"ohmydns/plugin/pkg/proxy"
+	"ohmydns/plugin/pkg/transport"
+	"ohmydns/plugin/test"
 
 	"github.com/miekg/dns"
 )

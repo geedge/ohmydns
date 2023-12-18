@@ -4,10 +4,10 @@ import (
 	"context"
 	"path/filepath"
 
-	"github.com/coredns/coredns/plugin"
-	"github.com/coredns/coredns/plugin/metrics/vars"
-	"github.com/coredns/coredns/plugin/pkg/rcode"
-	"github.com/coredns/coredns/request"
+	"ohmydns/plugin"
+	"ohmydns/plugin/metrics/vars"
+	"ohmydns/plugin/pkg/rcode"
+	"ohmydns/plugin/pkg/request"
 
 	"github.com/miekg/dns"
 )

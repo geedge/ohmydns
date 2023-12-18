@@ -6,10 +6,10 @@ import (
 
 	"github.com/coredns/caddy"
 	"github.com/coredns/caddy/caddyfile"
-	"github.com/coredns/coredns/core/dnsserver"
-	"github.com/coredns/coredns/plugin/dnstap"
-	"github.com/coredns/coredns/plugin/pkg/proxy"
-	"github.com/coredns/coredns/plugin/pkg/transport"
+	"ohmydns/core/dnsserver"
+	"ohmydns/plugin/dnstap"
+	"ohmydns/plugin/pkg/proxy"
+	"ohmydns/plugin/pkg/transport"
 )
 
 func TestList(t *testing.T) {
