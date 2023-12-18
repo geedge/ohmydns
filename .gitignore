@@ -1,0 +1,14 @@
+# only add build artifacts concerning coredns - no editor related files
+coredns
+coredns.exe
+Corefile
+build/
+release/
+vendor/
+*.awdb
+plugin/v64dns/analyze/pb/awdb/__pycache__/
+plugin/v64dns/analyze/pb/__pycache__/analyze_pb2_grpc.cpython-311.pyc
+plugin/v64dns/analyze/pb/__pycache__/
+*.csv
+*.txt
+plugin/v64dns/analyze/pb/.idea/
