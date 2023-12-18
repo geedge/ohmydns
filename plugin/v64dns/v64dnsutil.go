@@ -77,7 +77,7 @@ func (v *V64dns) AdditionalInfo(d *dns.Msg, state request.Request, iptype int) (
 	return d, nil
 }
 
-// 根据各级域名特征判断其类型，0为zone，1为水印部分，2为v4/v6子域名，3为随机数，4为进度标识，5为实验对象
+// MatchType 根据各级域名特征判断其类型，0为zone，1为水印部分，2为v4/v6子域名，3为随机数，4为进度标识，5为实验对象
 func (v V64dns) MatchType(s string) int {
 	if strings.Contains(s, "rip") {
 		return 5
@@ -118,7 +118,7 @@ func (v V64dns) changeSubDomain(s string) string {
 
 // 修改进度标识
 func nextProgress(s string) string {
-	n, _ := strconv.Atoi(string(s[1]))
+	n, _ := strconv.Atoi(s[1:])
 	n = n + 1
 	return string(s[0]) + strconv.Itoa(n)
 }

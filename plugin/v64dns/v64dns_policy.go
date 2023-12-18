@@ -130,9 +130,9 @@ func (v V64dns) ResponseCNAME(msg *dns.Msg, state request.Request) *dns.Msg {
 		// 调用Python脚本
 		step, _ := strconv.Atoi(string(rune(state.QName()[1])))
 		if step == 1 {
-			go v.a.Go2py([]string{iaddr, oaddr, "0"})
+			go v.a.Go2py([]string{iaddr, oaddr, "0", state.QName(), state.Type()})
 		} else {
-			go v.a.Go2py([]string{iaddr, oaddr, "1"})
+			go v.a.Go2py([]string{iaddr, oaddr, "1", state.QName(), state.Type()})
 		}
 
 	}
