@@ -15,8 +15,8 @@ func (v V64dns) VaildRequest(d string) int {
 	ds := strings.Split(d, ".")
 	//判断是否为目标域名
 	if strings.Contains(d, v.zone) {
-		//判断是否有解析进度,含有c且长度小于4即为进度标识
-		if strings.Contains(ds[0], "c") && len(ds[0]) < 4 {
+		//判断是否有解析进度,首字母为c且长度小于4即为进度标识
+		if ds[0][0]=="c" && len(ds[0]) < 4 {
 			return 0
 		}
 		//不存在解析进度，则可能为Qname最小化的请求，返回2

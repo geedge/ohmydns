@@ -45,7 +45,6 @@ class node:
         self.AS = aul.filterNull(record.get('asnumber', b'').decode("utf-8"))
         self.couCode = aul.filterNull(record.get('areacode', b'').decode("utf-8"))
         self.cou = aul.filterNull(record.get('country', b'').decode("utf-8"))
-        # self.FindTime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
         self.FindTime = datetime.datetime.now(pytz.UTC)
         self.owner = aul.filterNull(record.get('owner', b'').decode("utf-8"))
 
@@ -64,13 +63,11 @@ class RequestServe(analyze_pb2_grpc.GrpcServiceServicer):
         '''
         r = request
         print("receive R!!")
-        print(r)
         if r.gtype == "neo4j":
             if self.graph_conn == "":
                 url = str(r.guri).split("//")[0] + "//" + r.guser + ":" + r.gpass + "@" + str(r.guri).split("//")[1]
                 self.graph_conn = neo4j_connector(url)
                 print("已连接到图数据库Neo4j:" + r.guri)
-            print(self.graph_conn)
             result = self.graph_conn.work_with_neoj_53(r.data)
             return analyze_pb2.result(res=result)
         return analyze_pb2.result(res="not support")
@@ -101,6 +98,13 @@ class RelResolver53(StructuredRel):
     W = IntegerProperty()
     LTIME = DateTimeFormatProperty(default_now=True, format="%Y-%m-%d %H:%M:%S")
 
+# 查询记录定义
+class NodeResolverQuery(StructuredNode):
+    QNAME=StringProperty(required=True)
+    QTYPE=StringProperty()
+# 解析器和查询记录的关系
+class RelResolverQuery(StructuredRel):
+    W = IntegerProperty()
 
 class NodeResolver53(StructuredNode):
     IP = StringProperty(required=True, unique_index=True)
@@ -117,7 +121,8 @@ class NodeResolver53(StructuredNode):
     W = IntegerProperty()
     ISPUBLIC = BooleanProperty(default=False)
     LINK = RelationshipTo("NodeResolver53", "IP_LINK", model=RelResolver53)
-
+    QLINK=RelationshipTo("NodeResolverQuery","Q_LINK",model=RelResolverQuery)
+    
 
 class neo4j_connector:
     graph = ""
@@ -128,26 +133,25 @@ class neo4j_connector:
     def __init__(self, url):
         # 连接neo4j
         #config.ENCRYPTED = True
-        print(url)
         config.DATABASE_URL =url
         db.set_connection(url)
-        # self.graph = Graph(guri, auth=(guser, gpass), name="neo4j")
-        # self.nodematcher = NodeMatcher(self.graph)
-        # self.relatmatcher = RelationshipMatcher(self.graph)
-
+#  data=[ip1,ip2,ispublic,qname,qtype]
     def work_with_neoj_53(self, data):
-        for d in range(len(data) - 1):
+        
+        ############################################### 对解析器节点进行处理#####################################################
+        for d in range(len(data) - 3):
             n = node(data[d])
             if not n.dataOK:
                 return "node err because ip"
             # 查询是否存在节点
-            nd, exist = self.checknode_neo4j(n.ip)
+            nd, exist = self.checknode_neo4j(ip=n.ip)
             # 不存在则新建
             if not exist:
                 nd = NodeResolver53(AS=n.AS, COU=n.cou,
                                     CCODE=n.couCode, LAT=n.lat, LNG=n.lng,
                                     ISP=n.isp, IPType=aul.IP46(n.ip), PROV=n.prov, FTIME=n.FindTime,
                                     LTIME=n.FindTime, IP=n.ip, W=1)
+                # IP1是开放解析器
                 if data[2] == "0" and d == 0:
                     nd.ISPUBLIC = True
                 nd.save()
@@ -160,8 +164,20 @@ class neo4j_connector:
                 else:
                     nd.W = 1
                 nd.save()
+                
+                    
+                    
+        ################################################ 对查询记录节点进行处理################################################
+        # 查询是否存在节点
+        q,exist=self.checknode_neo4j(q=data[3],qtype=data[4])
+        # 不存在则新建
+        if not exist:
+            q = NodeResolverQuery(QNAME=data[3],QTYPE=data[4])
+            q.save()
+        # 存在则不做处理
+        
 
-        # 查询是否存在关系
+        ############################################ 查询解析器是否存在关系#############################################
         L, lexist = self.checklink_neo4j(data[0], data[1])
         # 数据存在问题则退出
         if L == "Err":
@@ -169,19 +185,36 @@ class neo4j_connector:
         # 不存在则建立关联
         if not lexist:
             L[0].LINK.connect(L[1], {'W': 1, 'LTIME': datetime.datetime.now(pytz.UTC)}).save()
-            # relates.append(
-            #     Relationship(nodes[i], 'IP_link', nodes[i + 1], TIME=time.time(), LTIME=time.time(), W=1))
         # 存在则修改权重
         else:
             L.W += 1
-            # L.LTIME = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
             L.LTIME = datetime.datetime.now(pytz.UTC)
             L.save()
         # 提交链接
+        
+        ############################################查询解析器和记录间的关系#########################################
+        QL, lexist = self.checkquerylink(data[1], data[3],data[4])
+        # 数据存在问题则退出
+        if QL == "Err":
+            return "node err when link"
+        # 不存在则建立关联
+        if not lexist:
+            QL[0].QLINK.connect(L[1], {'W': 1}).save()
+        # 存在则修改权重
+        else:
+            QL.W += 1
+            QL.save()
+            
+        # 完成处理，返回
         return "success"
 
-    def checknode_neo4j(self, ip):
-        a = NodeResolver53.nodes.get_or_none(IP=ip)
+    def checknode_neo4j(self, ip=None,q=None,qtype=None):
+        # 查询IP
+        if ip!=None:
+            a = NodeResolver53.nodes.get_or_none(IP=ip)
+        # 查询记录
+        else:
+            a=NodeResolverQuery.nodes.get_or_none(QNAME=q,QTYPE=qtype)
         if a is not None:
             return a, True
         return None, False
@@ -195,7 +228,16 @@ class neo4j_connector:
         if rel is not None:
             return rel, True
         return [f, t], False
-
+    
+    def checkquerylink(self,ip,qname,qtype):
+        r=NodeResolver53.nodes.get_or_none(IP=ip)
+        q=NodeResolverQuery.nodes.get_or_none(QNAME=qname,QTYPE=qtype)
+        if r is None or q is None:
+            return "Err", False
+        rel=r.QLINK.relationship(q)
+        if rel is not None:
+            return rel, True
+        return [r, q], False
 
 if __name__ == '__main__':
     serve()

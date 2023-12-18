@@ -21,7 +21,7 @@ type Policy struct {
 
 // ResponseHandler 跨栈解析响应主要处理函数
 func (v V64dns) ResponseHandler(msg *dns.Msg, state request.Request) *dns.Msg {
-	step, _ := strconv.Atoi(string(rune(state.QName()[1:])))
+	step, _ := strconv.Atoi(string(rune(strings.Split(state.QName(),".")[0][1:])))
 
 	// 未到达最后一步
 	if step < v.p.maxLen {
@@ -106,11 +106,12 @@ func (v V64dns) ResponseNSorAdd(msg *dns.Msg, state request.Request, flag int) *
 }
 
 // ResponseCNAME 响应CNAME记录，生成方式为：
-// [进度标识].[随机数].[水印].[子域名].[实验域名]
-// ====>[进度标识].[随机数].[水印].<新水印>.<新子域名>.[实验域名]
+// [进度标识].[实验水印].[随机数].[子域名].[实验域名二级域].[实验域名顶级域].
+// ====>[进度标识].[实验水印].<新水印>.[随机数].<新子域名>.[实验域名二级域].[实验域名顶级域].
+// 后面将不断原地替换<新水印>和<新子域名>
 func (v V64dns) ResponseCNAME(msg *dns.Msg, state request.Request) *dns.Msg {
 	qname := state.QName()
-
+	// 防止0x20干扰
 	dSlice := strings.Split(strings.ToLower(qname), ".")
 	if len(dSlice) > 4 {
 		// 将最近一次编码拆分开
@@ -148,13 +149,11 @@ func (v V64dns) ResponseCNAME(msg *dns.Msg, state request.Request) *dns.Msg {
 	// 实验进度+1
 	answer.Target += nextProgress(dSlice[0]) + "."
 	// 内容填充
-	for _, i := range dSlice[1 : len(dSlice)-5] {
-		answer.Target += i + "."
-	}
-	answer.Target += ip2id(state.IP()) + "."
-	answer.Target += dSlice[len(dSlice)-5] + "."
-	answer.Target += v.changeSubDomain(dSlice[len(dSlice)-4]) + "."
-	for _, i := range dSlice[len(dSlice)-3 : len(dSlice)-1] {
+	answer.Target += dSlice[1] + "."    // 实验水印
+	answer.Target += ip2id(state.IP()) + "." //新水印
+	answer.Target += dSlice[len(dSlice)-5] + "." //随机数
+	answer.Target += v.changeSubDomain(dSlice[len(dSlice)-4]) + "." //新子域名
+	for _, i := range dSlice[len(dSlice)-3 : ] { //[实验域名二级域].[实验域名顶级域].
 		answer.Target += i + "."
 	}
 	msg.Answer = append(msg.Answer, answer)
@@ -165,5 +164,4 @@ func (v V64dns) ResponseCNAME(msg *dns.Msg, state request.Request) *dns.Msg {
 const (
 	v6 = 0
 	v4 = 1
-	//interval = 20
 )
