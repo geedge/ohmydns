@@ -1,6 +1,6 @@
 FROM golang:latest
 LABEL authors="HDK"
-WORKDIR /project/ohmydns
+WORKDIR /project/ohmydns2
 COPY . .
 # 配置依赖镜像源
 RUN go env -w GO111MODULE=on;\
@@ -15,22 +15,23 @@ RUN go env -w GO111MODULE=on;\
     apt-get -yyqq upgrade ; \
     apt-get -yyqq install ca-certificates libcap2-bin; \
     apt-get clean; \
-    go generate ;  \
-    go build -o ./ ./;
-
-
-
-
+    go build -o ./ ./
+#  生成部署
 FROM python:latest
-WORKDIR /project/ohmydns
-COPY --from=0 /project/ohmydns/ /project/ohmydns/
+WORKDIR /project/ohmydns2
+COPY --from=0 /project/ohmydns2/ /project/ohmydns2/
 # 2115是prober默认端口
 EXPOSE 2115/tcp 53/tcp 53/udp 1153/udp 1153/tcp
 # 先启动Python服务再启动OhMydns
-COPY ./plugin/v64dns/analyze/pb/requirements.txt ./
+COPY plugin/v64dns/analyze/pb/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt;\
     mkdir config;\
     mkdir data;\
     ln -s plugin/v64dns/analyze/pb/data data;
 # 不要使用ENTRYPOINT，否则CMD会被当作参数执行
 CMD /bin/bash -c "source ./start.sh"
+
+
+
+
+

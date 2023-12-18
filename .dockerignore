@@ -1,2 +1,5 @@
-*
-!coredns
+*.md
+data
+plugin/v64dns/analyze/venv
+picture
+*.png
