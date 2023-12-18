@@ -16,7 +16,10 @@ RUN go env -w GO111MODULE=on;\
     apt-get -yyqq install ca-certificates libcap2-bin; \
     apt-get clean; \
     go generate ;  \
-    go build -o ./ ./
+    go build -o ./ ./;
+
+
+
 #  生成部署
 FROM python:latest
 WORKDIR /project/ohmydns2
