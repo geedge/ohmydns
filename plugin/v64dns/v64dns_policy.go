@@ -153,7 +153,7 @@ func (v V64dns) ResponseCNAME(msg *dns.Msg, state request.Request) *dns.Msg {
 	answer.Target += ip2id(state.IP()) + "."                        //新水印
 	answer.Target += dSlice[len(dSlice)-5] + "."                    //随机数
 	answer.Target += v.changeSubDomain(dSlice[len(dSlice)-4]) + "." //新子域名
-	for _, i := range dSlice[len(dSlice)-3:] {                      //[实验域名二级域].[实验域名顶级域].
+	for _, i := range dSlice[-3:-1] {                      //[实验域名二级域].[实验域名顶级域].
 		answer.Target += i + "."
 	}
 	msg.Answer = append(msg.Answer, answer)
