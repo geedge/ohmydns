@@ -156,5 +156,5 @@ func ip2id(ip string) string {
 
 // 构造示例
 func (v V64dns) makeProbev64() string {
-	return fmt.Sprintf("c1.0-0-0-0.%v.%v.", strings.ToLower(randstr.RandomAlphanumeric(5)), v.p.v4domain)
+	return fmt.Sprintf("c1.0-0-0-0.%v.%v", strings.ToLower(randstr.RandomAlphanumeric(5)), v.p.v4domain)
 }

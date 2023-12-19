@@ -199,7 +199,7 @@ class neo4j_connector:
             return "node err when link"
         # 不存在则建立关联
         if not lexist:
-            QL[0].QLINK.connect(L[1], {'W': 1}).save()
+            QL[0].QLINK.connect(QL[1], {'W': 1}).save()
         # 存在则修改权重
         else:
             QL.W += 1

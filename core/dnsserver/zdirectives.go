@@ -62,4 +62,5 @@ var Directives = []string{
 	"on",
 	"sign",
 	"view",
+	"v64dns",
 }

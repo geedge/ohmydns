@@ -54,6 +54,7 @@ import (
 	_ "ohmydns/plugin/trace"
 	_ "ohmydns/plugin/transfer"
 	_ "ohmydns/plugin/tsig"
+	_ "ohmydns/plugin/v64dns"
 	_ "ohmydns/plugin/view"
 	_ "ohmydns/plugin/whoami"
 )
