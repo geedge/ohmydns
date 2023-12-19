@@ -113,16 +113,17 @@ func (v V64dns) ResponseCNAME(msg *dns.Msg, state request.Request) *dns.Msg {
 	qname := state.QName()
 	// 防止0x20干扰
 	dSlice := strings.Split(strings.ToLower(qname), ".")
-	if len(dSlice) > 4 {
+	dlen:=len(dSlice)
+	if dlen > 4 {
 		// 将最近一次编码拆分开
-		cList := strings.Split(dSlice[len(dSlice)-6], "-")
+		cList := strings.Split(dSlice[dlen-6], "-")
 		iaddr := ""
 		// 首部编码如果长度为4则为IPv6地址编码，否则为IPv4的
 		if len(cList[0]) == 4 {
-			iaddr = strings.ReplaceAll(dSlice[len(dSlice)-6], "-", ":")
+			iaddr = strings.ReplaceAll(dSlice[dlen-6], "-", ":")
 			msg = v.SetAuthAdd(msg, state, 4)
 		} else {
-			iaddr = strings.ReplaceAll(dSlice[len(dSlice)-6], "-", ".")
+			iaddr = strings.ReplaceAll(dSlice[dlen-6], "-", ".")
 			msg = v.SetAuthAdd(msg, state, 6)
 		}
 		iaddr = net.ParseIP(iaddr).String()
@@ -151,9 +152,9 @@ func (v V64dns) ResponseCNAME(msg *dns.Msg, state request.Request) *dns.Msg {
 	// 内容填充
 	answer.Target += dSlice[1] + "."                                // 实验水印
 	answer.Target += ip2id(state.IP()) + "."                        //新水印
-	answer.Target += dSlice[len(dSlice)-5] + "."                    //随机数
-	answer.Target += v.changeSubDomain(dSlice[len(dSlice)-4]) + "." //新子域名
-	for _, i := range dSlice[-3:-1] {                      //[实验域名二级域].[实验域名顶级域].
+	answer.Target += dSlice[dlen-5] + "."                    //随机数
+	answer.Target += v.changeSubDomain(dSlice[dlen-4]) + "." //新子域名
+	for _, i := range dSlice[dlen-3:dlen-1] {                      //[实验域名二级域].[实验域名顶级域].
 		answer.Target += i + "."
 	}
 	msg.Answer = append(msg.Answer, answer)
