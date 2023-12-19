@@ -1,6 +1,6 @@
 FROM golang:latest
 LABEL authors="HDK"
-WORKDIR /project/ohmydns2
+WORKDIR /project/ohmydns
 COPY . .
 # 配置依赖镜像源
 RUN go env -w GO111MODULE=on;\
@@ -15,11 +15,12 @@ RUN go env -w GO111MODULE=on;\
     apt-get -yyqq upgrade ; \
     apt-get -yyqq install ca-certificates libcap2-bin; \
     apt-get clean; \
-    go build -o ./ ./
+    go generate; \
+    go build -o ohmydns ./
 #  生成部署
 FROM python:latest
-WORKDIR /project/ohmydns2
-COPY --from=0 /project/ohmydns2/ /project/ohmydns2/
+WORKDIR /project/ohmydns
+COPY --from=0 /project/ohmydns/ /project/ohmydns/
 # 2115是prober默认端口
 EXPOSE 2115/tcp 53/tcp 53/udp 1153/udp 1153/tcp
 # 先启动Python服务再启动OhMydns
