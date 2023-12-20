@@ -209,7 +209,7 @@ class neo4j_connector:
             QL.save()
             
         # 完成处理，返回
-        logging.debug("完成处理数据：{"+data+"}")
+        logging.debug("完成处理数据：{"+datastr+"}")
         return "success"
 
     def checknode_neo4j(self, ip=None,q=None,qtype=None):
