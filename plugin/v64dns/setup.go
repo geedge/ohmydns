@@ -1,11 +1,13 @@
 package v64dns
 
 import (
+	"github.com/panjf2000/ants/v2"
 	"ohmydns/core/dnsserver"
 	"ohmydns/plugin"
 	clog "ohmydns/plugin/pkg/log"
 	"ohmydns/plugin/v64dns/analyze"
 	"strconv"
+	"sync"
 
 	"github.com/coredns/caddy"
 )
@@ -30,6 +32,9 @@ func parseArg(c *caddy.Controller) (*V64dns, error) {
 	v := new(V64dns)
 	v.p.maxLen = chain_maxlen
 	v.p.dmChange = false
+	var wg sync.WaitGroup
+	v.w = &wg
+	v.pool, _ = ants.NewPool(3000, ants.WithPreAlloc(true))
 
 	for c.Next() {
 		arg := c.RemainingArgs()

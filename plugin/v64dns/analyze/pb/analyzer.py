@@ -62,7 +62,6 @@ class RequestServe(analyze_pb2_grpc.GrpcServiceServicer):
         :return:
         '''
         r = request
-        print("receive R!!")
         if r.gtype == "neo4j":
             if self.graph_conn == "":
                 url = str(r.guri).split("//")[0] + "//" + r.guser + ":" + r.gpass + "@" + str(r.guri).split("//")[1]

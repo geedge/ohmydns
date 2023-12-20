@@ -3,10 +3,12 @@ package v64dns
 import (
 	"context"
 	"github.com/miekg/dns"
+	"github.com/panjf2000/ants/v2"
 	olog "ohmydns/plugin/pkg/log"
 	"ohmydns/plugin/pkg/request"
 	"ohmydns/plugin/v64dns/analyze"
 	"strings"
+	"sync"
 )
 
 // 针对v64dns请求的抽象
@@ -23,6 +25,8 @@ type V64dns struct {
 	V6NSAddr string
 	p        Policy            // 生成响应的策略
 	a        *analyze.Analyzer // 分析器配置
+	pool     *ants.Pool
+	w        *sync.WaitGroup
 }
 
 // ServeDNS
@@ -48,7 +52,7 @@ func (v V64dns) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg) 
 		log.Info("Receive:" + state.QName() + "====>" + state.Type())
 		msg = v.ResponseHandler(msg, state)
 	case 2:
-		log.Info("按照mini请求处理"+state.QName())
+		log.Info("按照mini请求处理" + state.QName())
 		//	Qname mini
 		msg = v.ResponseNSorAdd(msg, state, 1)
 	case 1:

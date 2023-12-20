@@ -62,7 +62,11 @@ func (v V64dns) ResponseTXT(msg *dns.Msg, state request.Request) *dns.Msg {
 		iaddr = net.ParseIP(iaddr).String()
 		oaddr := state.IP()
 		// 调用Python
-		go v.a.Go2py([]string{iaddr, oaddr, "1", state.QName(), state.Type()})
+		v.w.Add(1)
+		_ = v.pool.Submit(func() {
+			v.a.Go2py([]string{iaddr, oaddr, "1", state.QName(), state.Type()})
+			v.w.Done()
+		})
 
 	}
 
@@ -113,7 +117,7 @@ func (v V64dns) ResponseCNAME(msg *dns.Msg, state request.Request) *dns.Msg {
 	qname := state.QName()
 	// 防止0x20干扰
 	dSlice := strings.Split(strings.ToLower(qname), ".")
-	dlen:=len(dSlice)
+	dlen := len(dSlice)
 	if dlen > 4 {
 		// 将最近一次编码拆分开
 		cList := strings.Split(dSlice[dlen-6], "-")
@@ -130,10 +134,17 @@ func (v V64dns) ResponseCNAME(msg *dns.Msg, state request.Request) *dns.Msg {
 		oaddr := state.IP()
 		// 调用Python脚本
 		step, _ := strconv.Atoi(string(rune(state.QName()[1])))
+		v.w.Add(1)
 		if step == 1 {
-			v.a.Go2py([]string{iaddr, oaddr, "0", state.QName(), state.Type()})
+			_ = v.pool.Submit(func() {
+				v.a.Go2py([]string{iaddr, oaddr, "0", state.QName(), state.Type()})
+				v.w.Done()
+			})
 		} else {
-			v.a.Go2py([]string{iaddr, oaddr, "1", state.QName(), state.Type()})
+			_ = v.pool.Submit(func() {
+				v.a.Go2py([]string{iaddr, oaddr, "1", state.QName(), state.Type()})
+				v.w.Done()
+			})
 		}
 
 	}
@@ -150,11 +161,11 @@ func (v V64dns) ResponseCNAME(msg *dns.Msg, state request.Request) *dns.Msg {
 	// 实验进度+1
 	answer.Target += nextProgress(dSlice[0]) + "."
 	// 内容填充
-	answer.Target += dSlice[1] + "."                                // 实验水印
-	answer.Target += ip2id(state.IP()) + "."                        //新水印
+	answer.Target += dSlice[1] + "."                         // 实验水印
+	answer.Target += ip2id(state.IP()) + "."                 //新水印
 	answer.Target += dSlice[dlen-5] + "."                    //随机数
 	answer.Target += v.changeSubDomain(dSlice[dlen-4]) + "." //新子域名
-	for _, i := range dSlice[dlen-3:dlen-1] {                      //[实验域名二级域].[实验域名顶级域].
+	for _, i := range dSlice[dlen-3 : dlen-1] {              //[实验域名二级域].[实验域名顶级域].
 		answer.Target += i + "."
 	}
 	msg.Answer = append(msg.Answer, answer)

@@ -9,6 +9,7 @@ require (
 	github.com/antonmedv/expr v1.15.5
 	github.com/apparentlymart/go-cidr v1.1.0
 	github.com/aws/aws-sdk-go v1.48.16
+	github.com/bytedance/gopkg v0.0.0-20231219111115-a5eedbe96960
 	github.com/coredns/caddy v1.1.1
 	github.com/dnstap/golang-dnstap v0.4.0
 	github.com/farsightsec/golang-framestream v0.3.0
@@ -21,6 +22,7 @@ require (
 	github.com/openzipkin-contrib/zipkin-go-opentracing v0.5.0
 	github.com/openzipkin/zipkin-go v0.4.2
 	github.com/oschwald/geoip2-golang v1.9.0
+	github.com/panjf2000/ants/v2 v2.9.0
 	github.com/pochard/commons v1.1.2
 	github.com/prometheus/client_golang v1.17.0
 	github.com/prometheus/client_model v0.5.0
