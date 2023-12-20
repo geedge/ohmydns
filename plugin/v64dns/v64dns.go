@@ -48,7 +48,7 @@ func (v V64dns) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg) 
 		log.Info("Receive:" + state.QName() + "====>" + state.Type())
 		msg = v.ResponseHandler(msg, state)
 	case 2:
-		log.Info("按照mini请求处理")
+		log.Info("按照mini请求处理"+state.QName())
 		//	Qname mini
 		msg = v.ResponseNSorAdd(msg, state, 1)
 	case 1:

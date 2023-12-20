@@ -13,7 +13,7 @@ import analyze_pb2
 import analyze_pb2_grpc
 import analyzedutil as aul
 
-logging.basicConfig(level=logging.DEBUG,filename="pythonrun.log",
+logging.basicConfig(level=logging.DEBUG,filename="./log/pythonrun.log",filemode="w",
                     format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
 
 
