@@ -15,7 +15,7 @@ func main() {
 	runtime.SetMutexProfileFraction(1)
 	runtime.SetBlockProfileRate(1)
 	go func() {
-		log.Println(http.ListenAndServe(":6061", nil))
+		http.ListenAndServe(":6061", nil)
 	 }()
 	coremain.Run()
 }
