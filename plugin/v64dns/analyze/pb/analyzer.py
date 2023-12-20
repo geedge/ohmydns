@@ -136,8 +136,8 @@ class neo4j_connector:
         config.DATABASE_URL =url
         db.set_connection(url)
 #  data=[ip1,ip2,ispublic,qname,qtype]
-    def work_with_neoj_53(self, data:list):
-        logging.debug("处理数据：{"+data+"}")
+    def work_with_neoj_53(self, data):
+        logging.debug("处理数据：{"+(d+" , ") for d in data+"}")
         ############################################### 对解析器节点进行处理#####################################################
         for d in range(len(data) - 3):
             n = node(data[d])
