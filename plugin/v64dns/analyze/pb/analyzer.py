@@ -13,7 +13,7 @@ import analyze_pb2
 import analyze_pb2_grpc
 import analyzedutil as aul
 
-logging.basicConfig(level=logging.DEBUG,
+logging.basicConfig(level=logging.DEBUG,filename="pythonrun.log",
                     format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
 
 
@@ -67,7 +67,7 @@ class RequestServe(analyze_pb2_grpc.GrpcServiceServicer):
             if self.graph_conn == "":
                 url = str(r.guri).split("//")[0] + "//" + r.guser + ":" + r.gpass + "@" + str(r.guri).split("//")[1]
                 self.graph_conn = neo4j_connector(url)
-                print("已连接到图数据库Neo4j:" + r.guri)
+                logging.info("已连接到图数据库Neo4j:" + r.guri)
             result = self.graph_conn.work_with_neoj_53(r.data)
             return analyze_pb2.result(res=result)
         return analyze_pb2.result(res="not support")
@@ -86,7 +86,7 @@ def serve():
     analyze_pb2_grpc.add_GrpcServiceServicer_to_server(RequestServe(), server)
     server.add_insecure_port(working_addr + ":" + working_port)
     server.start()
-    print("Python分析模块启动，工作在 " + working_addr + ":" + working_port)
+    logging.info("Python分析模块启动，工作在 " + working_addr + ":" + working_port)
     try:
         while True:
             time.sleep(60 * 60 * 24)  # one day in seconds
@@ -136,8 +136,8 @@ class neo4j_connector:
         config.DATABASE_URL =url
         db.set_connection(url)
 #  data=[ip1,ip2,ispublic,qname,qtype]
-    def work_with_neoj_53(self, data):
-        
+    def work_with_neoj_53(self, data:list):
+        logging.debug("处理数据：{"+data+"}")
         ############################################### 对解析器节点进行处理#####################################################
         for d in range(len(data) - 3):
             n = node(data[d])
@@ -206,6 +206,7 @@ class neo4j_connector:
             QL.save()
             
         # 完成处理，返回
+        logging.debug("完成处理数据：{"+data+"}")
         return "success"
 
     def checknode_neo4j(self, ip=None,q=None,qtype=None):
