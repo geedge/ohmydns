@@ -6,6 +6,6 @@ n64.top:53 {
        chain v41 v61
        ip-embed
        chain-mlen 10
-       analyze neo4j neo4j://124.221.228.62:7678 neo4j Hdk19990815
+       analyze neo4j neo4j://149.28.149.175:7678 neo4j Hdk19990815
     }
 }
