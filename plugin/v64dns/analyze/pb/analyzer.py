@@ -3,7 +3,6 @@ import datetime
 import logging
 import time
 from concurrent import futures
-
 import grpc
 import pytz
 from neomodel import db, StringProperty, DateTimeFormatProperty, RelationshipTo, StructuredRel, IntegerProperty, \
@@ -171,11 +170,11 @@ class neo4j_connector:
                     
         ################################################ 对查询记录节点进行处理################################################
         # 查询是否存在节点
-        q,exist=self.checknode_neo4j(q=data[3],qtype=data[4])
-        # 不存在则新建
-        if not exist:
-            q = NodeResolverQuery(QNAME=data[3],QTYPE=data[4])
-            q.save()
+        # q,exist=self.checknode_neo4j(q=data[3],qtype=data[4])
+        # # 不存在则新建
+        # if not exist:
+        #     q = NodeResolverQuery(QNAME=data[3],QTYPE=data[4])
+        #     q.save()
         # 存在则不做处理
         
 
@@ -195,17 +194,17 @@ class neo4j_connector:
         # 提交链接
         
         ############################################查询解析器和记录间的关系#########################################
-        QL, lexist = self.checkquerylink(data[1], data[3],data[4])
-        # 数据存在问题则退出
-        if QL == "Err":
-            return "node err when link"
-        # 不存在则建立关联
-        if not lexist:
-            QL[0].QLINK.connect(QL[1], {'W': 1}).save()
-        # 存在则修改权重
-        else:
-            QL.W += 1
-            QL.save()
+        # QL, lexist = self.checkquerylink(data[1], data[3],data[4])
+        # # 数据存在问题则退出
+        # if QL == "Err":
+        #     return "node err when link"
+        # # 不存在则建立关联
+        # if not lexist:
+        #     QL[0].QLINK.connect(QL[1], {'W': 1}).save()
+        # # 存在则修改权重
+        # else:
+        #     QL.W += 1
+        #     QL.save()
             
         # 完成处理，返回
         logging.debug("完成处理数据：{"+datastr+"}")
