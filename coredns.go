@@ -4,18 +4,18 @@ package main
 
 import (
 	"net/http"
-	_ "net/http/pprof"
 	_ "ohmydns/core/plugin" // Plug in CoreDNS.
 	"ohmydns/coremain"
-	"runtime"
+
+	"github.com/arl/statsviz"
 )
 
 func main() {
-	runtime.GOMAXPROCS(1)
-	runtime.SetMutexProfileFraction(1)
-	runtime.SetBlockProfileRate(1)
+	// Register statsviz handlers on the default serve mux.
+	statsviz.RegisterDefault()
 	go func() {
-		http.ListenAndServe(":6061", nil)
-	 }()
+		http.ListenAndServe(":6080", nil)
+	}()
+
 	coremain.Run()
 }
