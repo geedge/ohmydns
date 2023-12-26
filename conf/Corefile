@@ -1,5 +1,4 @@
 n64.top:53 {
-    debug
     v64dns n64.top {
        v4ns ns41 139.180.153.62
        v6ns ns61 2401:c080:1400:6e47:5400:04ff:fea1:1856

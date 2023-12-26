@@ -2,31 +2,27 @@ package v64dns
 
 import (
 	"context"
-	"github.com/miekg/dns"
-	"github.com/panjf2000/ants/v2"
 	olog "ohmydns/plugin/pkg/log"
 	"ohmydns/plugin/pkg/request"
 	"ohmydns/plugin/v64dns/analyze"
 	"strings"
 	"sync"
-)
 
-// 针对v64dns请求的抽象
-//type v64Request struct {
-//	eid string // 请求归属的实验ID
-//}
+	"github.com/miekg/dns"
+)
 
 // V64dns代表了水印权威
 type V64dns struct {
-	zone     string
-	ipv4NS   string
-	ipv6NS   string
-	V4NSAddr string
-	V6NSAddr string
-	p        Policy            // 生成响应的策略
-	a        *analyze.Analyzer // 分析器配置
-	pool     *ants.Pool
-	w        *sync.WaitGroup
+	zone      string
+	ipv4NS    string
+	ipv6NS    string
+	V4NSAddr  string
+	V6NSAddr  string
+	p         Policy            // 生成响应的策略
+	a         *analyze.Analyzer // 分析器配置
+	workqueue chan []string
+	w         *sync.WaitGroup
+	debug     bool // debug输出控制
 }
 
 // ServeDNS
@@ -48,11 +44,15 @@ func (v V64dns) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg) 
 	qname := strings.ToLower(state.QName())
 	switch v.VaildRequest(qname) {
 	case 0:
-		//	正常请求
-		log.Info("Receive:" + state.QName() + "====>" + state.Type())
+		// 正常请求
+		if v.debug {
+			log.Info("Receive:" + state.QName() + "====>" + state.Type())
+		}
 		msg = v.ResponseHandler(msg, state)
 	case 2:
-		log.Info("按照mini请求处理" + state.QName())
+		if v.debug {
+			log.Info("按照mini请求处理" + state.QName())
+		}
 		//	Qname mini
 		msg = v.ResponseNSorAdd(msg, state, 1)
 	case 1:

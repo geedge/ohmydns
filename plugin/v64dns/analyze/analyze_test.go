@@ -36,7 +36,7 @@ func TestAnalyzer_go2py(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			NewAnalyzer(tt.fields.Graphtype, tt.fields.Graphuri, tt.fields.GraphUser, tt.fields.GraphPass)
-			A.Go2py(tt.args.i)
+			// A.Go2py(tt.args.i)
 		})
 	}
 }

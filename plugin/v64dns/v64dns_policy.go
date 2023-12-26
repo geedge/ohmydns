@@ -1,11 +1,12 @@
 package v64dns
 
 import (
-	"github.com/miekg/dns"
 	"net"
 	"ohmydns/plugin/pkg/request"
 	"strconv"
 	"strings"
+
+	"github.com/miekg/dns"
 )
 
 // Policy 定义了权威生成记录可用的方法
@@ -30,12 +31,12 @@ func (v V64dns) ResponseHandler(msg *dns.Msg, state request.Request) *dns.Msg {
 	// 到达最后一步
 	switch state.QType() {
 	// 只处理TXT，CNAME，AAAA记录
-	case dns.TypeTXT, dns.TypeCNAME, dns.TypeAAAA:
+	case dns.TypeTXT, dns.TypeCNAME, dns.TypeAAAA, dns.TypeA:
 		return v.ResponseTXT(msg, state)
 	case dns.TypeNS:
 		return v.ResponseNSorAdd(msg, state, 0)
 	default:
-		log.Info("no")
+		log.Infof("域名 %v 的 %v 记录查询不符合要求", state.QName(), state.Type())
 		// 不符合要求的请求类型直接返回空响应
 		return msg
 	}
@@ -62,11 +63,7 @@ func (v V64dns) ResponseTXT(msg *dns.Msg, state request.Request) *dns.Msg {
 		iaddr = net.ParseIP(iaddr).String()
 		oaddr := state.IP()
 		// 调用Python
-		v.w.Add(1)
-		_ = v.pool.Submit(func() {
-			v.a.Go2py([]string{iaddr, oaddr, "1", state.QName(), state.Type()})
-			v.w.Done()
-		})
+		v.handledata([]string{iaddr, oaddr, "1", state.QName(), state.Type()})
 
 	}
 
@@ -80,13 +77,6 @@ func (v V64dns) ResponseTXT(msg *dns.Msg, state request.Request) *dns.Msg {
 // ResponseNSorAdd  0返回NS记录应答，1返回胶水记录
 func (v V64dns) ResponseNSorAdd(msg *dns.Msg, state request.Request, flag int) *dns.Msg {
 	qname := strings.ToLower(state.QName())
-	//sub := ""
-	//for _, qs := range strings.Split(qname, ".") {
-	//	switch v.MatchType(qs) {
-	//	case 2:
-	//		sub = qs
-	//	}
-	//}
 
 	answer := new(dns.NS)
 	answer.Hdr.Ttl = 3600
@@ -134,17 +124,10 @@ func (v V64dns) ResponseCNAME(msg *dns.Msg, state request.Request) *dns.Msg {
 		oaddr := state.IP()
 		// 调用Python脚本
 		step, _ := strconv.Atoi(string(rune(state.QName()[1])))
-		v.w.Add(1)
 		if step == 1 {
-			_ = v.pool.Submit(func() {
-				v.a.Go2py([]string{iaddr, oaddr, "0", state.QName(), state.Type()})
-				v.w.Done()
-			})
+			v.handledata([]string{iaddr, oaddr, "0", state.QName(), state.Type()})
 		} else {
-			_ = v.pool.Submit(func() {
-				v.a.Go2py([]string{iaddr, oaddr, "1", state.QName(), state.Type()})
-				v.w.Done()
-			})
+			v.handledata([]string{iaddr, oaddr, "1", state.QName(), state.Type()})
 		}
 
 	}
@@ -169,8 +152,16 @@ func (v V64dns) ResponseCNAME(msg *dns.Msg, state request.Request) *dns.Msg {
 		answer.Target += i + "."
 	}
 	msg.Answer = append(msg.Answer, answer)
-	log.Debug(answer)
 	return msg
+}
+
+func (v V64dns) handledata(d []string) {
+	select {
+	case v.workqueue <- d:
+		return
+	default:
+		return
+	}
 }
 
 const (

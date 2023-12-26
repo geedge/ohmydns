@@ -1,7 +1,6 @@
 package v64dns
 
 import (
-	"github.com/panjf2000/ants/v2"
 	"ohmydns/core/dnsserver"
 	"ohmydns/plugin"
 	clog "ohmydns/plugin/pkg/log"
@@ -34,7 +33,7 @@ func parseArg(c *caddy.Controller) (*V64dns, error) {
 	v.p.dmChange = false
 	var wg sync.WaitGroup
 	v.w = &wg
-	v.pool, _ = ants.NewPool(3000, ants.WithPreAlloc(true))
+	v.debug = dnsserver.GetConfig(c).Debug
 
 	for c.Next() {
 		arg := c.RemainingArgs()
@@ -92,11 +91,14 @@ func parseArg(c *caddy.Controller) (*V64dns, error) {
 		}
 		break
 	}
-	// 监控停止信号
-	//go EL.Stop()
+
 	log.Infof("v64权威服务器启动, 工作参数为 \n Zone:%v, NS4:%v, NS6:%v, IPv4子域:%v, IPv6子域:%v", v.zone, v.ipv4NS, v.ipv6NS, v.p.v4subdomain, v.p.v6subdomain)
 	log.Infof("分析器启动, 工作参数为 \n url:%v   maxlen:%v", v.a.Graphuri, v.p.maxLen)
 	log.Infof("测试样例: " + v.makeProbev64())
+	v.workqueue = make(chan []string, quelen)
+	for i := 0; i < worker; i++ {
+		go v.a.Go2py(v.workqueue)
+	}
 	return v, nil
 }
 
@@ -104,4 +106,6 @@ var log = clog.NewWithPlugin("v64dns")
 
 const (
 	chain_maxlen = 4
+	quelen       = 50000
+	worker       = 100
 )

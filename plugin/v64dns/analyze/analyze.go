@@ -77,25 +77,23 @@ func newGrpcConn(target string) (*grpc.ClientConn, error) {
 }
 
 // 远程调用Python脚本方法
-func (a Analyzer) Go2py(i []string) {
-	lck.Lock()
-	defer lck.Unlock()
-	// 调用服务端函数
-	r, err := a.grpcClient.AnalyzeService(context.Background(), &pb.DnsChain{
-		Gtype: a.Graphtype,
-		Guri:  a.Graphuri,
-		Guser: a.GraphUser,
-		Gpass: a.GraphPass,
-		Data:  i,
-	})
-	if err != nil {
-		print(r)
-		olog.Errorf("调用解析链分析器代码失败: %s", err)
-		return
+func (a Analyzer) Go2py(q chan []string) {
+	for i := range q {
+		// 调用服务端函数
+		r, err := a.grpcClient.AnalyzeService(context.Background(), &pb.DnsChain{
+			Gtype: a.Graphtype,
+			Guri:  a.Graphuri,
+			Guser: a.GraphUser,
+			Gpass: a.GraphPass,
+			Data:  i,
+		})
+		if err != nil {
+			olog.Errorf("调用解析链分析器代码失败: %s", err)
+			return
+		}
+		// 处理不成功则显示警告信息
+		if r.Res != "success" {
+			olog.Warning(r.Res)
+		}
 	}
-	// 处理不成功则显示警告信息
-	if r.Res != "success" {
-		olog.Warning(r.Res)
-	}
-
 }
