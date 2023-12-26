@@ -93,8 +93,8 @@ def serve():
 
 
 class RelResolver53(StructuredRel):
-    W = IntegerProperty()
-    LTIME = DateTimeFormatProperty(default_now=True, format="%Y-%m-%d %H:%M:%S")
+    W = IntegerProperty(default=1)
+    FTIME = DateTimeFormatProperty(format="%Y-%m-%d %H:%M:%S")
 
 # 查询记录定义
 class NodeResolverQuery(StructuredNode):
@@ -115,11 +115,13 @@ class NodeResolver53(StructuredNode):
     LNG = StringProperty()
     IPType = StringProperty()
     FTIME = DateTimeFormatProperty(format="%Y-%m-%d %H:%M:%S")
-    LTIME = DateTimeFormatProperty(default_now=True, format="%Y-%m-%d %H:%M:%S")
-    W = IntegerProperty()
+    W = IntegerProperty(default=0)
     ISPUBLIC = BooleanProperty(default=False)
     LINK = RelationshipTo("NodeResolver53", "IP_LINK", model=RelResolver53)
     QLINK=RelationshipTo("NodeResolverQuery","Q_LINK",model=RelResolverQuery)
+    def pre_save(self):
+        self.W+=1
+        self.FTIME=datetime.datetime.now(pytz.UTC)
     
 
 class neo4j_connector:
@@ -135,6 +137,8 @@ class neo4j_connector:
         db.set_connection(url)
 #  data=[ip1,ip2,ispublic,qname,qtype]
     def work_with_neoj_53(self, data):
+        # 存储节点
+        nodelist=[]
         datastr=""
         for d in data:
             datastr=datastr+str(d)+" , "
@@ -144,27 +148,22 @@ class neo4j_connector:
             n = node(data[d])
             if not n.dataOK:
                 return "node err because ip"
-            # 查询是否存在节点
-            nd, exist = self.checknode_neo4j(ip=n.ip)
-            # 不存在则新建
-            if not exist:
-                nd = NodeResolver53(AS=n.AS, COU=n.cou,
-                                    CCODE=n.couCode, LAT=n.lat, LNG=n.lng,
-                                    ISP=n.isp, IPType=aul.IP46(n.ip), PROV=n.prov, FTIME=n.FindTime,
-                                    LTIME=n.FindTime, IP=n.ip, W=1)
-                # IP1是开放解析器
-                if data[2] == "0" and d == 0:
-                    nd.ISPUBLIC = True
-                nd.save()
-            # 存在则只修改时间
-            else:
-                # nd.LTIME = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
-                nd.LTIME = datetime.datetime.now(pytz.UTC)
-                if nd.W is not None:
-                    nd.W += 1
-                else:
-                    nd.W = 1
-                nd.save()
+            # 查询是否存在节点,不存在则新建
+            nodelist.append(NodeResolver53.get_or_create({"AS":n.AS, "COU":n.cou,
+                                    "CCODE":n.couCode, "LAT":n.lat, "LNG":n.lng,
+                                    "ISP":n.isp, "IPType":aul.IP46(n.ip), "PROV":n.prov, "IP":n.ip})[0])
+            if data[2] == "0" and d==0:
+                nodelist[d].ISPUBLIC = True
+            nodelist[d].save()
+        
+        # 创建或更新关联
+        L=nodelist[0].LINK.relationship(nodelist[1])
+        if L is None:
+            nodelist[0].LINK.connect(nodelist[1]).save() 
+        else:
+            L.W+=1
+            L.FTIME=datetime.datetime.now(pytz.UTC)
+            L.save()           
                 
                     
                     
@@ -179,18 +178,22 @@ class neo4j_connector:
         
 
         ############################################ 查询解析器是否存在关系#############################################
-        L, lexist = self.checklink_neo4j(data[0], data[1])
-        # 数据存在问题则退出
-        if L == "Err":
-            return "node err when link"
-        # 不存在则建立关联
-        if not lexist:
-            L[0].LINK.connect(L[1], {'W': 1, 'LTIME': datetime.datetime.now(pytz.UTC)}).save()
+        # L, lexist = self.checklink_neo4j(nodelist[0], nodelist[1])
+        # # 数据存在问题则退出
+        # if L == "Err":
+        #     return "node err when link"
+        # # 不存在则建立关联
+        # if not lexist:
+        
+
+        
+        
+        
         # 存在则修改权重
-        else:
-            L.W += 1
-            L.LTIME = datetime.datetime.now(pytz.UTC)
-            L.save()
+        # else:
+        #     L.W += 1
+        #     L.LTIME = datetime.datetime.now(pytz.UTC)
+        #     L.save()
         # 提交链接
         
         ############################################查询解析器和记录间的关系#########################################
@@ -210,26 +213,22 @@ class neo4j_connector:
         logging.debug("完成处理数据：{"+datastr+"}")
         return "success"
 
-    def checknode_neo4j(self, ip=None,q=None,qtype=None):
-        # 查询IP
-        if ip!=None:
-            a = NodeResolver53.nodes.get_or_none(IP=ip)
-        # 查询记录
-        else:
-            a=NodeResolverQuery.nodes.get_or_none(QNAME=q,QTYPE=qtype)
-        if a is not None:
-            return a, True
-        return None, False
+    # def checknode_neo4j(self, ip=None,q=None,qtype=None):
+    #     # 查询IP
+    #     if ip!=None:
+    #         a = NodeResolver53.nodes.get_or_none(IP=ip)
+    #     # 查询记录
+    #     else:
+    #         a=NodeResolverQuery.nodes.get_or_none(QNAME=q,QTYPE=qtype)
+    #     if a is not None:
+    #         return a, True
+    #     return None, False
 
     def checklink_neo4j(self, ip_from, ip_to):
-        f = NodeResolver53.nodes.get_or_none(IP=ip_from)
-        t = NodeResolver53.nodes.get_or_none(IP=ip_to)
-        if f is None or t is None:
-            return "Err", False
-        rel = f.LINK.relationship(t)
+        rel = ip_from.LINK.relationship(ip_to)
         if rel is not None:
             return rel, True
-        return [f, t], False
+        return [ip_from, ip_to], False
     
     def checkquerylink(self,ip,qname,qtype):
         r=NodeResolver53.nodes.get_or_none(IP=ip)
