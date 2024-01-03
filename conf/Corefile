@@ -2,9 +2,10 @@ n64.top:53 {
     v64dns n64.top {
        v4ns ns41 139.180.153.62
        v6ns ns61 2401:c080:1400:6e47:5400:04ff:fea1:1856
-       chain v41 v61
+       chain ipv4 ipv6
        ip-embed
-       chain-mlen 10
+       chain-mlen 8
        analyze neo4j neo4j://149.28.149.175:7678 neo4j Hdk19990815
+       workernum 400
     }
 }

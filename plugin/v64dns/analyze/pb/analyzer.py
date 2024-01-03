@@ -164,12 +164,12 @@ class neo4j_connector:
         ################################################ 对查询记录节点进行处理################################################
         
         # 查询是否存在节点,不存在则新建
-        querynode=NodeResolverQuery.get_or_create({"QNAME":data[3], "QTYPE":data[4],})[0]
+        querynode=NodeResolverQuery.get_or_create({"QNAME":data[3], "QTYPE":data[4]})[0]
         querynode.save()
         
-        QL=nodelist[0].QLINK.relationship(querynode)
+        QL=nodelist[1].QLINK.relationship(querynode)
         if QL is None:
-            nodelist[0].QLINK.connect(querynode).save() 
+            nodelist[1].QLINK.connect(querynode).save() 
         else:
             QL.W+=1
             QL.save()

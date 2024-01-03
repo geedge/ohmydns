@@ -75,6 +75,11 @@ func parseArg(c *caddy.Controller) (*V64dns, error) {
 					return nil, c.ArgErr()
 				}
 				v.p.maxLen, _ = strconv.Atoi(c.Val())
+			case "workernum":
+				if !c.Next() {
+					return nil, c.ArgErr()
+				}
+				worker, _ = strconv.Atoi(c.Val())
 			case "analyze":
 				args := c.RemainingArgs()
 				if len(args) != 4 {
@@ -106,6 +111,7 @@ var log = clog.NewWithPlugin("v64dns")
 
 const (
 	chain_maxlen = 4
-	quelen       = 50000
-	worker       = 100
+	quelen       = 150000
 )
+
+var worker = 400
