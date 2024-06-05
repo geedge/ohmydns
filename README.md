@@ -1,4 +1,4 @@
-# IPv6 DNS服务测绘工具——Ohmydns2
+# IPv6 DNS服务测绘工具——Ohmydns
 ## 功能需求
 基于coredns改进而来的DNS服务组件，以caddy作为底层调度实现。主要用于DNS解析器的测量，通过多种插件，可同时作为探测器、解析器以及自建权威服务。
 借助CNAME重定向的原理，可以通过IPv4 DNS入口发现IPv6递归解析器以及两者之间的关联关系。
@@ -16,30 +16,21 @@ IPv4/IPv6双栈
 **其他环境** 
 
 Docker、 Neo4J
-## 项目目录结构
-![](./picture/系统目录结构.png)
 
 ### 目录以及关键文件解释
 `/core`是探测端和DNS服务端核心基础代码的实现
 
-`/core/prober`主要包括探测端在caddy中的注册、启动，以及核心处理逻辑代码，提供了探测端的HTTP API接口
 
 `/core/dnsserver`主要包括服务端在caddy中的注册、启动，以及核心处理逻辑代码。目前支持DoH/Do53/DoT的解析服务
 
-`/ohmain`是项目的启动入口，主要通过调用caddy的一系列接口完成服务注册、端口监听和请求处理工作
+`/coremain`是项目的启动入口，主要通过调用caddy的一系列接口完成服务注册、端口监听和请求处理工作
 
-`/plugin`是业务插件的集合，其中探测端的插件存储在`/plugin/prober`中。为规范代码风格，所有业务插件包需要包含两部分：`setup.go`和`XXX.go`,
+`/plugin`是业务插件的集合。为规范代码风格，所有业务插件包需要包含两部分：`setup.go`和`XXX.go`,
 其中`setup.go`用于将业务插件注册到插件链中，详情可参考`whoami`插件的实现(`/plugin/whoami`)
 
 `/plugin/pkg`是核心功能插件集合,这些插件无需注册，可视为项目功能的工具集合
 
-## 项目架构
-![项目结构](./picture/image.png)
 
-### 主要运行机理
-![](./picture/OhMyDNS2函数关系.png)
-
-注：红色部分为基于coredns架构的自主实现
 ### 使用
 需要部署特制xmap作为探测工具
 https://git.mesalab.cn/handingkang/ohxmap
@@ -48,9 +39,6 @@ https://git.mesalab.cn/handingkang/ohxmap
 
 部署一个neo4j数据库作为存储，并将neo4j的部署信息同步到ohmyfile中，系统会自动读取并将解析结果存储到该neo4j数据库
 
-说明：
-1. 解析服务部分将根据配置文件中不同域名服务块内定义的插件链依次调用插件，各插件处理完成之后返回结果
-![](./picture/coredns结构.png)
 ### 核心插件
 存放在/plugin/pkg中，负责所有底层DNS请求、响应的实现（类似于sapp解析层插件）
 
@@ -66,8 +54,8 @@ func init() { plugin.Register("插件名", setup) }
 ## 部署方式
 项目打包为Docker镜像进行容器化部署，
 ## 配置项
-### Ohmyfile
-参照coredns的corefile
+### Corefile
+存放在conf文件夹中，具体配置规则参照coredns的corefile
 #### v64DNS
 ```
  v64dns zone {
@@ -86,20 +74,6 @@ func init() { plugin.Register("插件名", setup) }
 | analyze    | analyze <数据库类型> <数据库地址> <用户名> <密码> | 分析结果的存储位置，目前仅支持neo4j图数据库               |                  |
 
 
-## API设计
-### 探测控制
-通过HTTP访问的方式控制探测部分，默认开放端口2115，访问路径`/prober`
-#### 参数
-探测端插件可通过上下文方式接受自定义参数，但需要避免和以下参数冲突
-
-| 参数名    | 说明                               | 示例         |
-|--------|----------------------------------|------------|
-| /      | 无参数时，默认展示所有的探测任务状态               | /          |
-| act    | 新建一个或停止指定（全部）任务（停止指定任务需要配合pid参数） | new/stop   |
-| pid    | 探测任务id                           | 1542772752 |
-| prange | 探测范围，默认为全球，可指定为一个IP              | 8.8.8.8    |
-| ptype  | 探测任务类型，默认为v64                    | v64        |
-| loop   | 是否不间断重复探测任务,默认为false             | false      |
 
 ## 库表设计——V64DNS
 ### MySQL数据库
