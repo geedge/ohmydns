@@ -37,7 +37,7 @@ https://git.mesalab.cn/handingkang/ohxmap
 
 部署本代码作为自建权威
 
-部署一个neo4j数据库作为存储，并将neo4j的部署信息同步到ohmyfile中，系统会自动读取并将解析结果存储到该neo4j数据库
+部署一个neo4j数据库作为存储，并将neo4j的部署信息同步到conf/corefile中，系统会自动读取并将解析结果存储到该neo4j数据库
 
 ### 核心插件
 存放在/plugin/pkg中，负责所有底层DNS请求、响应的实现（类似于sapp解析层插件）
