@@ -21,8 +21,7 @@ RUN go env -w GO111MODULE=on;\
 FROM python:latest
 WORKDIR /project/ohmydns
 COPY --from=0 /project/ohmydns/ /project/ohmydns/
-# 2115是prober默认端口
-EXPOSE 2115/tcp 53/tcp 53/udp 1153/udp 1153/tcp
+EXPOSE 53/tcp 53/udp 1153/udp 1153/tcp 6080/tcp
 # 先启动Python服务再启动OhMydns
 COPY plugin/v64dns/analyze/pb/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt;\
