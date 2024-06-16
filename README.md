@@ -1,7 +1,7 @@
 # IPv6 DNS服务测绘工具——Ohmydns
 ## 功能需求
-基于coredns改进而来的DNS服务组件，以caddy作为底层调度实现。主要用于DNS解析器的测量，通过多种插件，可同时作为探测器、解析器以及自建权威服务。
-借助CNAME重定向的原理，可以通过IPv4 DNS入口发现IPv6递归解析器以及两者之间的关联关系。
+基于coredns改进而来的DNS服务组件，以caddy作为底层调度实现。主要用于DNS解析器的测量，通过多种插件，可同时作为解析器与自建权威服务。
+ohmydns的主要特点是实现了v64dns插件，该插件作用是借助CNAME重定向的原理，可以通过IPv4 DNS入口发现IPv6递归解析器以及两者之间的关联关系。
 
 
 ## 部署环境
@@ -32,12 +32,32 @@ Docker、 Neo4J
 
 
 ### 使用
-需要部署特制xmap作为探测工具
-https://git.mesalab.cn/handingkang/ohxmap
+1. 需要部署特制xmap作为探测工具
+   https://git.mesalab.cn/handingkang/ohxmap
 
-部署本代码作为自建权威
+2. 部署一个neo4j数据库作为存储，并将neo4j的部署信息同步到conf/corefile中，系统会自动读取并将解析结果存储到该neo4j数据库
 
-部署一个neo4j数据库作为存储，并将neo4j的部署信息同步到conf/corefile中，系统会自动读取并将解析结果存储到该neo4j数据库
+3. 新建/plugin/v64dns/analyze/pb/data文件夹，并埃文离线数据库（awdb）格式放置其中
+
+   - 所需的数据库文件名如下
+
+   - ```python
+     IP_scene_all_cn.awdb
+     IP_city_single_BD09_WGS84_ipv6_en.awdb
+     IP_basic_single_WGS84_en.awdb
+     ```
+
+4. 部署本代码作为自建权威，推荐使用docker镜像的方式
+
+   ```shell
+   docker build -t ohmydns -f Dockerfile .
+   ```
+
+   生成镜像之后运行容器即可
+
+   ```shell
+   docker run -dit --restart=always --network=host ohmydns
+   ```
 
 ### 核心插件
 存放在/plugin/pkg中，负责所有底层DNS请求、响应的实现（类似于sapp解析层插件）
